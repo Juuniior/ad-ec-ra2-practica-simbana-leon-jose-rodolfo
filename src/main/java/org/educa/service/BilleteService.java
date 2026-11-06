@@ -1,5 +1,7 @@
 package org.educa.service;
 
+import org.educa.dao.BilleteDAO;
+import org.educa.dao.BilleteDAOImpl;
 import org.educa.entity.BilleteEntity;
 
 import java.math.BigDecimal;
@@ -15,6 +17,7 @@ public class BilleteService {
     private static final BigDecimal FACTOR_DESCUENTO_INFANTIL = new BigDecimal("0.80");
     private static final BigDecimal FACTOR_DESCUENTO_RESERVAS = new BigDecimal("0.90");
     private final VueloService vueloService = new VueloService();
+    private final BilleteDAO billeteDAO = new BilleteDAOImpl();
 
     public void calculatePrecio(BilleteEntity billete, int numReservas) {
         BigDecimal precio = vueloService.getPrecioBase(billete.getVuelo())
@@ -32,6 +35,8 @@ public class BilleteService {
 
 
     public void save(Connection connection, BilleteEntity billete) throws SQLException {
+        billeteDAO.save(connection, billete);
+
     }
 
     private boolean esMenor(LocalDate fecNac, LocalDate fecSalida) {

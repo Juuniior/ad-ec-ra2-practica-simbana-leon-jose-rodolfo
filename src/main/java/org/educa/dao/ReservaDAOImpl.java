@@ -34,4 +34,35 @@ public class ReservaDAOImpl implements ReservaDAO {
         }
         return reservas;
     }
+
+    @Override
+    public boolean existsByCodReserva(Connection connection, String codReserva) throws SQLException {
+        String sql = "SELECT 1 FROM reservas WHERE cod_reserva = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, codReserva);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
+    @Override
+    public void save(Connection connection, ReservaEntity reserva) throws SQLException {
+        // fec_reserva y estado toman sus valores por defecto (fecha actual y CONFIRMADA)
+        String sql = "INSERT INTO reservas (cod_reserva, id_cliente) VALUES (?, ?)";
+        try (PreparedStatement ps = connection.prepareStatement(sql,
+                new String[]{"id_reserva", "fec_reserva", "estado"})) {
+            ps.setString(1, reserva.getCodReserva());
+            ps.setInt(2, reserva.getCliente().getIdCliente());
+            ps.executeUpdate();
+
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    reserva.setIdReserva(rs.getInt("id_reserva"));
+                    reserva.setFecReserva(rs.getTimestamp("fec_reserva").toLocalDateTime());
+                    reserva.setEstado(rs.getString("estado"));
+                }
+            }
+        }
+    }
 }
