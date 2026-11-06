@@ -10,6 +10,12 @@ import java.sql.SQLException;
 
 public class ClienteDAOImpl implements ClienteDAO {
 
+    /**
+     * Busca un cliente por su DNI, haciendo una consulta a la base de datos.
+     * @param dni DNI del usuario que se va a buscar y se va usar para hacer la consulta en la base de datos.
+     * @return Cliente si se ha encontrado a uno con ese DNI y null si no.
+     * @throws SQLException si ocurre un error durante el acceso a la base de datos.
+     */
     @Override
     public ClienteEntity findByDni(String dni) throws SQLException {
         String sql = "SELECT id_cliente, dni, nombre, p_apellido, s_apellido, email, telefono " +
@@ -33,6 +39,11 @@ public class ClienteDAOImpl implements ClienteDAO {
         }
     }
 
+    /**
+     * Guarda un cliente nuevo en la base de datos.
+     * @param cliente Objeto ClienteEntity con los datos del cliente que se quieren guardar.
+     * @throws SQLException si ocurre un error durante el acceso a la base de datos.
+     */
     @Override
     public void saveCliente(ClienteEntity cliente) throws SQLException {
         String sql = "INSERT INTO clientes (dni, nombre, p_apellido, s_apellido, email, telefono) " +

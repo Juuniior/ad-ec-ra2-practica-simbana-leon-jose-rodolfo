@@ -12,6 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VueloDAOImpl implements VueloDAO {
+    /**
+     * Busca los vuelos que salen del aeropuerto indicado, excluyendo los cancelados.
+     * @param origen aeropuerto desde el que salen los vuelos.
+     * @return lista de vuelos encontrados, incluyendo sus aeropuertos de origen y destino.
+     * @throws SQLException si ocurre un error durante el acceso a la base de datos.
+     */
     @Override
     public List<VueloEntity> findByOrigen(AeropuertoEntity origen) throws SQLException {
         String sql = "SELECT v.id_vuelo, v.num_vuelo, v.id_avion, v.fec_salida, v.fec_llegada, v.estado, " +

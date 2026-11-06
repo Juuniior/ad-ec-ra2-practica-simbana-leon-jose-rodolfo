@@ -8,6 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class BilleteDAOImpl implements BilleteDAO {
+    /**
+     * Guarda un billete en la base de datos y recupera el identificador generado.
+     * @param connection conexión con la base de datos.
+     * @param billete billete que se desea guardar.
+     * @throws SQLException si ocurre un error durante el acceso a la base de datos.
+     */
     @Override
     public void save(Connection connection, BilleteEntity billete) throws SQLException {
         String sql = "INSERT INTO billetes (id_pasajero, id_vuelo, id_asiento, precio) VALUES (?, ?, ?, ?)";

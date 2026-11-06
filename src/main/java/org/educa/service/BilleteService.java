@@ -19,6 +19,11 @@ public class BilleteService {
     private final VueloService vueloService = new VueloService();
     private final BilleteDAO billeteDAO = new BilleteDAOImpl();
 
+    /**
+     * Llama a VueloService y calcula el precio final de un billete aplicando los suplementos y descuentos correspondientes.
+     * @param billete billete del cual se va a calcular el precio.
+     * @param numReservas número de reservas realizadas.
+     */
     public void calculatePrecio(BilleteEntity billete, int numReservas) {
         BigDecimal precio = vueloService.getPrecioBase(billete.getVuelo())
                 .add(billete.getAsiento().getSuplemento());
@@ -33,7 +38,12 @@ public class BilleteService {
         billete.setPrecio(precio.setScale(2, RoundingMode.HALF_UP));
     }
 
-
+    /**
+     * Llama al DAO y guarda un billete en la base de datos.
+     * @param connection conexión con la base de datos.
+     * @param billete billete que se desea guardar.
+     * @throws SQLException si ocurre un error durante el acceso a la base de datos.
+     */
     public void save(Connection connection, BilleteEntity billete) throws SQLException {
         billeteDAO.save(connection, billete);
 

@@ -18,6 +18,12 @@ public class AsientoService {
             "FIRST", new BigDecimal("250.00"));
     private final AsientoDAO asientoDAO = new AsientoDAOImpl();
 
+    /**
+     * Llama al DAO. busca los asientos disponibles de un vuelo y asigna el suplemento.
+     * @param vuelo vuelo del que se quieren consultar los asientos disponibles.
+     * @return lista de asientos disponibles con su suplemento.
+     * @throws SQLException si ocurre un error durante el acceso a la base de datos.
+     */
     public List<AsientoEntity> findDisponibles(VueloEntity vuelo) throws SQLException {
         List<AsientoEntity> asientos = asientoDAO.findDisponibles(vuelo);
         for (AsientoEntity asiento : asientos) {

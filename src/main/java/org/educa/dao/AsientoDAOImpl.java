@@ -12,6 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AsientoDAOImpl implements AsientoDAO {
+
+    /**
+     * Busca los asientos disponibles de un vuelo.
+     * @param vuelo vuelo del que se quieren consultar los asientos disponibles.
+     * @return lista de asientos disponibles para el vuelo indicado.
+     * @throws SQLException si ocurre un error durante el acceso a la base de datos.
+     */
     @Override
     public List<AsientoEntity> findDisponibles(VueloEntity vuelo) throws SQLException {
         String sql = "SELECT a.id_asiento, a.id_avion, a.cod_asiento, a.clase " +

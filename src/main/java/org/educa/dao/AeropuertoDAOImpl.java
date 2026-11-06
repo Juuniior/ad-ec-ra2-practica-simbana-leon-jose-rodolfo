@@ -11,6 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AeropuertoDAOImpl implements AeropuertoDAO {
+
+    /**
+     * Obtiene todos los aeropuertos registrados en la base de datos.
+     * @return lista de aeropuertos encontrados.
+     * @throws SQLException si ocurre un error durante el acceso a la base de datos.
+     */
     @Override
     public List<AeropuertoEntity> findAll() throws SQLException {
         String sql = "SELECT id_aeropuerto, cod_iata, nombre, ciudad, pais " +

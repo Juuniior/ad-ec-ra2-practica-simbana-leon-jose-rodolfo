@@ -12,6 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReservaDAOImpl implements ReservaDAO {
+    /**
+     * Busca todas las reservas asociadas a un cliente.
+     * @param cliente cliente cuyas reservas se quieren consultar.
+     * @return lista de reservas del cliente indicado.
+     * @throws SQLException si ocurre un error durante el acceso a la base de datos.
+     */
     @Override
     public List<ReservaEntity> findByCliente(ClienteEntity cliente) throws SQLException {
         String sql = "SELECT id_reserva, cod_reserva, fec_reserva, estado " +
@@ -35,6 +41,13 @@ public class ReservaDAOImpl implements ReservaDAO {
         return reservas;
     }
 
+    /**
+     * Comprueba si existe una reserva con el código indicado.
+     * @param connection connection conexión activa con la base de datos.
+     * @param codReserva codReserva código de la reserva que se quiere comprobar.
+     * @return true si existe una reserva con ese código, false en caso contrario.
+     * @throws SQLException si ocurre un error durante el acceso a la base de datos.
+     */
     @Override
     public boolean existsByCodReserva(Connection connection, String codReserva) throws SQLException {
         String sql = "SELECT 1 FROM reservas WHERE cod_reserva = ?";
@@ -46,6 +59,12 @@ public class ReservaDAOImpl implements ReservaDAO {
         }
     }
 
+    /**
+     * Guarda una nueva reserva en la base de datos y recupera los valores generados automáticamente.
+     * @param connection connection conexión activa con la base de datos.
+     * @param reserva reserva objeto ReservaEntity con los datos de la reserva que se quiere guardar.
+     * @throws SQLException si ocurre un error durante el acceso a la base de datos.
+     */
     @Override
     public void save(Connection connection, ReservaEntity reserva) throws SQLException {
         // fec_reserva y estado toman sus valores por defecto (fecha actual y CONFIRMADA)
