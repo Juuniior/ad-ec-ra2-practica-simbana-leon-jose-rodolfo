@@ -28,13 +28,22 @@ public class VueloDAOImpl implements VueloDAO {
                     AeropuertoEntity destino = new AeropuertoEntity(
                             rs.getInt("id_aeropuerto"),
                             rs.getString("cod_iata"),
-                            
-
-                    );
+                            rs.getString("nombre"),
+                            rs.getString("ciudad"),
+                            rs.getString("pais"));
+                    vuelos.add(new VueloEntity(
+                            rs.getInt("id_vuelo"),
+                            rs.getString("num_vuelo"),
+                            origen,
+                            destino,
+                            rs.getInt("id_avion"),
+                            rs.getTimestamp("fec_salida").toLocalDateTime(),
+                            rs.getTimestamp("fec_llegada").toLocalDateTime(),
+                            rs.getString("estado")));
                 }
             }
         }
 
-        return List.of();
+        return vuelos;
     }
 }
